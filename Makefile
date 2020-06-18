@@ -1,3 +1,9 @@
+################################################################################
+#
+# Created by Sam Noble for eosdublinwow https://eosdublin.com
+# Visit https://github.com/wax-tools for details.
+#
+#################################################################################
 environments:=testnet production
 roles:=producer api seed
 

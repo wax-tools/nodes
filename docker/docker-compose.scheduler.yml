@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+  keosd:
+    image: eosdublin/eosio:${EOSIO_VERSION}
+    tty: true
+    init: true
+    container_name: scheduler.eosio.keosd
+    command: "keosd --data-dir /eosio-wallet --config-dir /eosio-wallet"
+    volumes:
+      - ${KEOSD_WALLET_ROOT}/default:/eosio-wallet
+    logging:
+      driver: gelf
+      options:
+        gelf-address: "${GELF_TCP_ENDPOINT}"
+        tag: "{{.Name}}"
+  scheduler:
+    image: eosdublin/cron
+    container_name: scheduler
+    depends_on: 
+      - keosd
+    logging:
+      driver: gelf
+      options:
+        gelf-address: "${GELF_TCP_ENDPOINT}"
+        tag: "{{.Name}}"
+    volumes: 
+      - ../config/scheduler/crontab.conf:/usr/local/etc/cron.d/crontab.conf
+      - ../config/scheduler/claim.sh:/usr/local/bin/claim.sh
+      - ../config/scheduler/init.sh:/usr/local/bin/init.sh
+      - ../scripts:/usr/local/bin/eosdublin:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DEFAULT_WALLET_PASSWORD=${DEFAULT_WALLET_PASSWORD}

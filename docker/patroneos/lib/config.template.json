@@ -1,0 +1,18 @@
+{
+    "listenIP": "${LISTEN_IP:-0.0.0.0}",
+    "listenPort": "${LISTEN_PORT:-8080}",
+
+    "nodeosProtocol": "${NODEOS_PROTOCOL:-http}",
+    "nodeosUrl": "${NODEOS_HOST:-0.0.0.0}",
+    "nodeosPort": "${NODEOS_PORT:-8888}",
+
+    "contractBlackList": {
+        "currency": true
+    },
+
+    "maxSignatures": ${MAX_SIGNATURES:-10},
+    "maxTransactionSize": ${MAX_TRANSACTION_SIZE:-500000},
+    "maxTransactions": ${MAX_TRANSACTIONS:-32},
+
+    "configListenPort": "${CONFIG_LISTEN_PORT:-9001}"
+}

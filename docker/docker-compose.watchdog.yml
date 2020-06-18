@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  watchdog:
+    tty: true
+    image: eosdublin/watchdog:${WATCHDOG_VERSION}
+    build: 
+      context: ./watchdog
+    container_name: ${CHAIN}-${ENVIRONMENT}-watchdog
+    command: ${CHAIN} ${EOSIO_ACCOUNT_NAME} "${WALLET_PASS}" "${API_URL}"
+    volumes:
+      - ../scripts:/usr/local/bin/eosdublin:ro

@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  nodeos:
+    image: ${EOSIO_IMAGE}
+    build:
+      context: ./eosio.nodeos
+    user: ${NODEOS_USER}:${NODEOS_GROUP}
+    command: [ 
+      "--data-dir /eos-data --config-dir /eos-config ${NODEOS_ARGS}", 
+      "${INIT_MODE}", 
+      "${INIT_DATA}",
+      "${LOGGING_LEVEL}",
+      "${LOGGING_GELF_ENDPOINT}",
+      "${LOGGING_GELF_HOST}"
+    ]
+    container_name: ${NODEOS_CONTAINER_NAME}
+    volumes:
+      - ${NODEOS_CONFIG_PATH}:/eos-config
+      - ${NODEOS_DATA_PATH}:/eos-data
+      - ${NODEOS_SHARED_PATH}:/eos-shared

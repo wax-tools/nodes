@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  patroneos:
+    image: eosdublin/patroneos:v2.0.0
+    build:
+        context: ./patroneos/
+    user: ${PATRONEOS_USER}:${NODEOS_GROUP}
+    container_name: ${PATRONEOS_CONTAINER_NAME}
+    command: "${NODEOS_CONTAINER_NAME} ${PATRONEOS_ARGS}"
